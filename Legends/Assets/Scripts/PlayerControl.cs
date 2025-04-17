@@ -7,17 +7,35 @@ public class PlayerControl : MonoBehaviour
     
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float moveSpeed = 7;
+    [SerializeField] private Collider[] weapons;
     
     private CharacterController characterController;
     private Animator animator;
     private Vector3 targetPosition;
-
+    
+    private void ToggleWeapons(bool enable)
+    {
+        foreach (Collider weapon in weapons)
+        {
+            weapon.enabled = enable;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
+        ToggleWeapons(false);
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         targetPosition = transform.position;
+    }
+
+    public void BeginAttack()
+    {
+        ToggleWeapons(true);
+    }
+    public void EndAttack()
+    {
+        ToggleWeapons(false);
     }
     
     // Update is called once per frame
@@ -41,7 +59,7 @@ public class PlayerControl : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 500, layerMask))
             {
-                Debug.Log("hit: " + hit.collider.name);
+                //Debug.Log("hit: " + hit.collider.name);
                 targetPosition = hit.point;
                 transform.LookAt(targetPosition);
             }
