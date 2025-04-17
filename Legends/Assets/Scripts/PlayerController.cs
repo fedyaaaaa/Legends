@@ -61,12 +61,9 @@ public class PlayerController : MonoBehaviour
         {
             
         }
-
-
-
+        
     }
-
-
+    
     public void BeginAttack()
     {
         foreach (Collider swordCollider in swordColliders)
@@ -80,6 +77,8 @@ public class PlayerController : MonoBehaviour
         {
             swordCollider.enabled = false;
         }
+
+       
     }
     
 }
