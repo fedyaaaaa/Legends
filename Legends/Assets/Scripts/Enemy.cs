@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+     public Transform target;
     [SerializeField] private Collider swordCollider;
     [SerializeField] private float attackInterval = 1.5f;
 
