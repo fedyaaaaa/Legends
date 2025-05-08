@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     
     private float lastHitTime = 0;
     private int currentHealth;
+    private int currentMaxHealth;
     private Animator animator;
 
     public static bool isAlive = true;
@@ -17,8 +18,14 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         currentHealth = startingHealth;
+        currentMaxHealth = startingHealth;
         animator = GetComponent<Animator>();
         isAlive = true;
+    }
+
+    public float GetHealthRatio()
+    {
+        return (float)currentHealth / (float)currentMaxHealth;
     }
 
     private void OnTriggerEnter(Collider other)

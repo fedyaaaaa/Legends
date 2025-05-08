@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private Collider swordCollider;
+    [SerializeField] private float attackInterval = 1.5f;
+
+    private float lastAttackTime = 0;
     private NavMeshAgent agent;
     private Animator animator;
     private bool isDead = false;
@@ -39,7 +42,7 @@ public class Enemy : MonoBehaviour
     {
         if (isDead)
             return;
-        if (Vector3.Distance(transform.position, target.position) > 1f)
+        if (Vector3.Distance(transform.position, target.position) > 1.5f)
         {
             agent.isStopped = false;
             agent.SetDestination(target.position);
@@ -49,11 +52,12 @@ public class Enemy : MonoBehaviour
         {
             agent.isStopped = true;
             animator.SetBool("running", false);
-            //  if (Time.time - lastHitTime > attackInterval)
-           // {
-            //    lastAttackTime = Time.time
-             //   animator.SetTrigger("attck");
-           // }
+            if(Time.time - lastAttackTime > attackInterval)
+            {
+                lastAttackTime = Time.time;
+                animator.SetTrigger("attack");
+            }
+          
         }
        
     }
